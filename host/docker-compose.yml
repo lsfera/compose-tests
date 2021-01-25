@@ -1,0 +1,8 @@
+version: '3'
+services:
+  client:
+    image: alpine:latest
+    volumes:
+      - /opt/work/ext/file:/opt/file
+    command: [ "cat", "/opt/file"]
+    
