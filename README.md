@@ -3,3 +3,7 @@ Just a companion repo to https://github.com/docker/compose/issues/8071 issue.
 
 When running the [dind version](./run-dind.sh) example the file is mapped as expected and the container command "cat ..." results in an "Hello from file!!"  
 In the [dod](./run-dod.sh) example - instead - the file is seen as a directory(as per reported issue) and the container command "cat ..." results in error. 
+
+## Update
+
+Definitely not issues on compose. You simply have to map inner compose file(s) bind mount with absolute host path, as in the updated dod version
