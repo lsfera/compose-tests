@@ -1,13 +1,20 @@
 version: '3'
 services:
+  remote-docker-api:
+    image: jarkt/docker-remote-api
+    container_name: remote-docker-api
+    ports:
+     - 2374:2375
+    volumes:
+     - /var/run/docker.sock:/var/run/docker.sock:ro
   docker:
-    image: docker-compose
-    build:
-      context: ./docker/compose
-      dockerfile: Dockerfile
+    image: docker/compose:1.25.1-alpine
     container_name: docker
+    environment:
+      - DOCKER_HOST=tcp://remote-docker-api:2375
+      - BASE_PATH=$PWD
     tty: true
     volumes:
-      - ./host:/opt/work
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    working_dir: /opt/work
+      - $PWD/host:/work
+    working_dir: /work
+    entrypoint: sh -c "echo 'host view:';find /work;tail -f /dev/null"

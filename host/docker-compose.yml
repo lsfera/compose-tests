@@ -3,6 +3,6 @@ services:
   client:
     image: alpine:latest
     volumes:
-      - /opt/work/ext/file:/opt/file
-    command: [ "cat", "/opt/file"]
+      - ${BASE_PATH}/host/ext:/opt
+    command: sh -c "echo 'container view:';cat /opt/file;ls -alF /opt;tail -f /dev/null"
     
